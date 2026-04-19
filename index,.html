@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Maria Eduarda ❤️</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#000; /* fundo preto */
+    overflow:hidden;
+}
+
+/* Telas */
+.tela{
+    width:100vw;
+    height:100vh;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    position:absolute;
+    background:#000; /* todas telas pretas */
+}
+
+.tela.ativa{
+    display:flex;
+}
+
+/* Botões */
+button{
+    padding:20px 45px;
+    font-size:28px;
+    border:none;
+    border-radius:50px;
+    cursor:pointer;
+    color:white;
+    background:linear-gradient(45deg,#ff4da6,#ff66cc,#ff99ff);
+    box-shadow:0 0 20px #ff66cc;
+    animation:pulsar 1.5s infinite;
+    transition:0.3s;
+}
+
+button:hover{
+    transform:scale(1.08);
+}
+
+@keyframes pulsar{
+    0%,100%{transform:scale(1);}
+    50%{transform:scale(1.08);}
+}
+
+/* estrelas */
+.estrela{
+    position:absolute;
+    width:3px;
+    height:3px;
+    background:white;
+    border-radius:50%;
+    animation:piscar 2s infinite alternate;
+}
+
+@keyframes piscar{
+    from{opacity:0.2;}
+    to{opacity:1;}
+}
+
+/* glitter */
+#chuva{
+    position:absolute;
+    width:100%;
+    height:100%;
+}
+
+.glitter{
+    position:absolute;
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:white;
+    box-shadow:
+        0 0 10px white,
+        0 0 20px pink,
+        0 0 30px #ff66cc;
+    animation:cair linear forwards;
+}
+
+@keyframes cair{
+    0%{
+        transform:translateY(-50px) scale(0);
+        opacity:0;
+    }
+    20%{
+        opacity:1;
+    }
+    100%{
+        transform:translateY(110vh) scale(1.4);
+        opacity:0;
+    }
+}
+
+/* corações */
+.coracao{
+    position:absolute;
+    color:#ff4da6;
+    font-size:25px;
+    animation:subir 5s linear forwards;
+}
+
+@keyframes subir{
+    0%{
+        transform:translateY(100vh) scale(0.5);
+        opacity:0;
+    }
+    20%{
+        opacity:1;
+    }
+    100%{
+        transform:translateY(-10vh) scale(1.5);
+        opacity:0;
+    }
+}
+
+/* texto final */
+#mensagemFinal{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:90%;
+    text-align:center;
+    color:white;
+    font-size:30px;
+    font-weight:bold;
+    opacity:0;
+    animation:aparecer 4s forwards;
+    animation-delay:3s;
+    text-shadow:
+        0 0 10px pink,
+        0 0 20px #ff66cc,
+        0 0 30px white;
+}
+
+@keyframes aparecer{
+    to{opacity:1;}
+}
+</style>
+</head>
+<body>
+
+<div class="tela ativa" id="tela1">
+    <button onclick="trocarTela(1)">Clique aqui ❤️</button>
+</div>
+
+<div class="tela" id="tela2">
+    <button onclick="trocarTela(2)">Quase Lá 💖</button>
+</div>
+
+<div class="tela" id="tela3">
+    <button onclick="trocarTela(3)">Falta pouco 💘</button>
+</div>
+
+<div class="tela" id="tela4">
+    <div id="chuva"></div>
+    <div id="mensagemFinal">
+        Eu te amo Maria Eduarda de todo meu coração,<br><br>
+        obrigado por tudo, que vc já fez por mim... você me faz feliz apenas por existir.<br><br>
+        Você é a melhor coisa que já me aconteceu.<br><br>
+        Eu te amo até a lua ❤️
+    </div>
+</div>
+
+<script>
+function trocarTela(num){
+    document.querySelectorAll(".tela").forEach(t => t.classList.remove("ativa"));
+    document.getElementById("tela"+(num+1)).classList.add("ativa");
+
+    if(num === 3){
+        iniciarEfeitos();
+    }
+}
+
+/* estrelas */
+for(let i=0;i<80;i++){
+    let e = document.createElement("div");
+    e.classList.add("estrela");
+    e.style.left = Math.random()*100+"vw";
+    e.style.top = Math.random()*100+"vh";
+    document.body.appendChild(e);
+}
+
+/* efeitos finais */
+function iniciarEfeitos(){
+    const chuva = document.getElementById("chuva");
+
+    setInterval(()=>{
+        let g = document.createElement("span");
+        g.classList.add("glitter");
+        g.style.left = Math.random()*100+"vw";
+        g.style.animationDuration = (Math.random()*3+2)+"s";
+        chuva.appendChild(g);
+        setTimeout(()=>g.remove(),5000);
+    },70);
+
+    setInterval(()=>{
+        let c = document.createElement("span");
+        c.classList.add("coracao");
+        c.innerHTML="❤️";
+        c.style.left = Math.random()*100+"vw";
+        c.style.fontSize = (Math.random()*25+15)+"px";
+        document.body.appendChild(c);
+        setTimeout(()=>c.remove(),5000);
+    },400);
+}
+</script>
+
+</body>
+</html>
